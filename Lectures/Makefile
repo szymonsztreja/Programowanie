@@ -1,6 +1,7 @@
 all: \
 	00-sprawy-organizacyjne.pdf \
 	01-intro-to-programming.pdf \
+	01-intro-to-cxx.pdf \
 	02-first-steps.pdf \
 	03-loops.pdf \
 	04-data-structures.pdf \
@@ -19,7 +20,7 @@ again:
 
 watch:
 	( find . -name '*.tex' -type f ; find . -name '*.bib' -type f) \
-		| entr -pc make again
+		| entr -pc make
 
 clean-garbage:
 	rm *.dvi || true
