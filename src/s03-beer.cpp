@@ -1,15 +1,7 @@
-#include <iostream> // for std :: cout , std :: cerr , and std :: cin
+#include <iostream> 
 #include <string> 
 #include <cctype>
 
-//auto reverse(std::vector<std::string> v, int l_arg) -> void
-//{
-//    for ( int i = 0; i <= l_arg; l_arg--)
-//    {
-//        std::cout << v[l_arg] << ' ';
-//    }
-//}
-//
 auto odliczanie(int bottles) -> void
 {
     for(auto i = bottles; i > 1; --i) {
@@ -65,16 +57,6 @@ auto main(int argc, char* argv[]) -> int
     }
     
     odliczanie( input_d);
-    }
-
-
-
-    
-//    auto vektor_arg = std::vector<;               //tworzenie vectora z tablicy argumentów przekazanych w wierszu poleceń
-//    std::copy_n( argv, argc, std::back_inserter(vektor_arg));    //kopiowane argc (ilosc arg) argumenow z tablicy argv do vectora
-//    
-//    vektor_arg.erase(vektor_arg.begin());                       //usuwa z vektora pierwszy argument                        
-    
- 
+    } 
 return 0;
 }
