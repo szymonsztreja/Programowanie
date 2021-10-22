@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <cmath>
 
 
 auto pop_top(std::stack<double>& stack) -> double
@@ -42,6 +43,74 @@ auto evaluate_subtraction(std::stack<double>& stack) -> void
     stack.push(a - b);
 }
 
+auto evaluate_mulp(std::stack<double>& stack) -> void
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for *"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push(a * b);
+}
+
+auto evaluate_div(std::stack<double>& stack) -> void
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for /"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push(a / b);
+}
+
+auto evaluate_n_div(std::stack<double>& stack) -> void
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for //"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push( (int)(a/b));
+}
+
+auto evaluate_modulo(std::stack<double>& stack) -> void
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for %"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push( std::fmod(a, b) );
+}
+
+auto evaluate_sqr(std::stack<double>& stack) -> void
+{
+    if (stack.size() < 1) {
+        throw std::logic_error{"not enough operands for **"};
+    }
+    auto const a = pop_top(stack);
+    stack.push(a*a);
+}
+
+auto evaluate_root(std::stack<double>& stack) -> void
+{
+    if (stack.size() < 1) {
+        throw std::logic_error{"not enough operands for sqrt"};    //rzucenie wyjatku
+    }
+    auto const a = pop_top(stack);
+    stack.push( sqrt(a) );
+}
+
+auto evaluate_delta(std::stack<double>& stack) -> void
+{
+    if (stack.size() < 3) {
+        throw std::logic_error{"not enough operands for /"};  
+    }
+    auto const c = pop_top(stack);
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push( b*b-4*a*c );
+}
 
 auto make_args(int argc, char* argv[]) -> std::vector<std::string>
 {
@@ -63,6 +132,20 @@ auto main(int argc, char* argv[]) -> int
                 evaluate_addition(stack);
             } else if (each == "-") {
                 evaluate_subtraction(stack);
+            } else if (each == "*") {
+                evaluate_mulp(stack);
+            } else if (each == "/") {
+                evaluate_div(stack);
+            } else if (each == "//") {
+                evaluate_n_div(stack);
+            } else if (each == "%") {
+                evaluate_modulo(stack);
+            } else if (each == "**") {
+                evaluate_sqr(stack);
+            } else if (each == "sqrt") {
+                evaluate_root(stack);
+            } else if (each == "qe") {
+                evaluate_delta(stack);
             } else {
                 stack.push(std::stod(each));
             }
